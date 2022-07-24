@@ -1,4 +1,4 @@
-local amtToDo = 500
+local amtToDo = 5
 
 function ToWord(value, context)
     context = context or {financial = false, scale = "long", decimal = 0}
@@ -145,17 +145,24 @@ end
 for i = 1, amtToDo do
     local word = ToWord(i)
     local result = {}
-    for _, v in pairs((sentence):split("")) do
-        table.add(result, v)
+    for _, v in pairs((word):split("")) do
+        table.insert(result, v:upper())
     end
     wait(1)
     local count = 1
-    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(result[count], "All")
-    if count == #result then
-        count = 1
-    else
+    repeat
+        game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(
+            result[count],
+            "All"
+        )
+        wait(.2)
+        game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true
         count = count + 1
-    end
+        wait(.5)
+    until count == #result + 1
+    wait(2)
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(word, "All")
+    count = 1
     wait(.5)
     game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true
 end
