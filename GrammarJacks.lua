@@ -1,6 +1,4 @@
-local targetamt = 5
-
-wait(3) -- In this time switch to the roblox tab.
+local amtToDo = 50
 
 function ToWord(value, context)
 	context = context or { financial = false; scale = 'long'; decimal = 0; };
@@ -88,11 +86,13 @@ function ToWord(value, context)
 	end;
 end;
 
-for i = 1, targetamt do
-	local word = ToWord(i)
-	wait(1)
-	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(string.upper(word), "All")
-	wait(.5)
-	game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true
-	wait(1)
-end
+script.Parent.MouseButton1Click:Connect(function()
+	for i = 1, amtToDo do
+		local randNum = math.random(1,2)
+		local word = ToWord(i)
+		wait(randNum)
+		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(word, "All")
+		wait(.5)
+		game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true
+	end
+end)
