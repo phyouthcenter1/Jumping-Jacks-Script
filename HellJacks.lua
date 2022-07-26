@@ -1,4 +1,4 @@
-local amtToDo = 5
+local amtToDo = 100
 
 function ToWord(value, context)
     context = context or {financial = false, scale = "long", decimal = 0}
@@ -161,7 +161,7 @@ for i = 1, amtToDo do
         wait(.5)
     until count == #result + 1
     wait(2)
-    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(word, "All")
+    game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(string.upper(word), "All")
     count = 1
     wait(.5)
     game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true
